@@ -1,3 +1,8 @@
+appdirs==1.4.3
+attrs==19.1.0
+black==19.3b0
+Click==7.0
 Django==2.2
 pytz==2018.9
 sqlparse==0.3.0
+toml==0.10.0
