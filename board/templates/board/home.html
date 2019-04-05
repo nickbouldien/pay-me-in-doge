@@ -1,0 +1,20 @@
+{% extends "board/base.html" %} {% block content %} {% for site in sites %}
+
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ site.poster }}</a>
+      <small class="text-muted">{{ site.date_posted }}</small>
+    </div>
+    <h2>
+      <a class="article-title" href="{{ site.link }}">{{ site.name }}</a>
+    </h2>
+    <p>{{ site.upvotes }}</p>
+
+    {% if description %}
+    <p class="article-content">{{ site.description }}</p>
+    {% endif %}
+  </div>
+</article>
+
+{% endfor %} {% endblock content%}
