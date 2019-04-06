@@ -1,3 +1,5 @@
 {
-  "python.pythonPath": "venv/bin/python3"
+  "python.pythonPath": "venv/bin/python3",
+  "html.format.enable": false,
+  "prettier.disableLanguages": ["html"]
 }
