@@ -3,7 +3,7 @@ from .models import Site
 
 
 def home(request):
-    context = {"sites": Site.objects.all()}
+    context = {"sites": Site.objects.all().order_by("-upvotes")}
     return render(request, "board/home.html", context)
 
 
