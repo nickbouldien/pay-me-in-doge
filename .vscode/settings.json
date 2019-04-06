@@ -1,5 +1,8 @@
 {
   "python.pythonPath": "venv/bin/python3",
   "html.format.enable": false,
-  "prettier.disableLanguages": ["html"]
+  "prettier.disableLanguages": ["html"],
+  "[python]": {
+    "editor.tabSize": 4
+  }
 }
