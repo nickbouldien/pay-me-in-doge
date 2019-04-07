@@ -1,0 +1,16 @@
+{% extends "board/base.html" %}
+{% block content %}
+  <div class="content-section">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class='form-group'>
+        <legend class="mb-4 border-bottom">delete site</legend>
+        <h3>are you sure you want to delete the site "{{ object.name }}"</h3>
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-warning" type="submit">delete</button>
+        <a class="btn btn-dark" href="{% url 'site-detail' object.pk %}">cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock content%}

@@ -12,7 +12,8 @@
       </h2>
       <p>{{ object.upvotes }}</p>
 
-      {% if description %}
+      {% if object.description %}
+      <h5>site description:</h5>
       <p class="article-content">{{ object.description }}</p>
       {% endif %}
     </div>

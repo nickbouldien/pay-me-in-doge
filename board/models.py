@@ -1,10 +1,11 @@
 import uuid
 from django.db import models
-from django.core.validators import MinValueValidator
-from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
+from django.urls import reverse
+from django.utils import timezone
 
-
+# TODO - move this class out of here
 class UUIDModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -26,3 +27,5 @@ class Site(UUIDModel):
     def __str__(self):
         return "'{}': '{}' - '{}'".format(self.name, self.link, self.description)
 
+    def get_absolute_url(self):
+        return reverse("site-detail", kwargs={"pk": self.pk})
