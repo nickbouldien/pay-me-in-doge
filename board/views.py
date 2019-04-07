@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView
 from .models import Site
 
 
@@ -21,3 +21,7 @@ class SiteDetailView(DetailView):
 
 def about(request):
     return render(request, "board/about.html")
+
+
+def resources(request):
+    return render(request, "board/resources.html")
