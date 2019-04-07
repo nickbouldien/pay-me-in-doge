@@ -1,0 +1,20 @@
+{% extends "board/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.poster.profile.image.url }}" />
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ object.poster }}</a>
+        <small class="text-muted">{{ object.date_posted | date:"M d, Y" }}</small>
+      </div>
+      <h2>
+        <a class="article-title" href="{{ object.link }}">{{ object.name }}</a>
+      </h2>
+      <p>{{ object.upvotes }}</p>
+
+      {% if description %}
+      <p class="article-content">{{ object.description }}</p>
+      {% endif %}
+    </div>
+  </article>
+{% endblock content%}
