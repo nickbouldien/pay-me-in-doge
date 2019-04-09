@@ -1,3 +1,7 @@
+/* colors */
+/* #019cde */
+/* 1e4151 */
+
 body {
   background: #f2ede0;
   color: #333333;
@@ -64,8 +68,21 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
-.bg-steel {
+.bg-blue-dianne {
   background-color: #1e4151;
+}
+
+.btn-info {
+  background-color: #1e4151;
+  color: #fff;
+}
+
+btn-outline-info:not(:disabled):not(.disabled).active,
+.btn-outline-info:not(:disabled):not(.disabled):active,
+.show > .btn-outline-info.dropdown-toggle {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
 }
 
 .content-section {
