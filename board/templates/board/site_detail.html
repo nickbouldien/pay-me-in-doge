@@ -4,7 +4,9 @@
     <img class="rounded-circle article-img" src="{{ object.poster.profile.image.url }}" />
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ object.poster }}</a>
+        {% if site.poster %}
+          <a class="mr-2" href="{% url 'user-sites' username=site.poster.username %}">{{ site.poster.username }}</a>
+        {% endif %}
         <small class="text-muted">{{ object.date_posted | date:"M d, Y" }}</small>
       </div>
       <h2>
