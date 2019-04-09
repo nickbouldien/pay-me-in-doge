@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import render
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -44,6 +45,8 @@ class SiteListView(ListView):
     template_name = "board/home.html"
     context_object_name = "sites"
     ordering = ["-upvotes"]
+    # p = Paginator(objects, 2)
+    paginate_by = 5
 
 
 class SiteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
