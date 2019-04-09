@@ -13,8 +13,13 @@
       <p>{{ object.upvotes }}</p>
 
       {% if object.description %}
-      <h5>site description:</h5>
-      <p class="article-content">{{ object.description }}</p>
+        <h5>site description:</h5>
+        <p class="article-content">{{ object.description }}</p>
+      {% endif %}
+    
+      {% if object.poster == user %}
+        <a class="btn" href="{% url 'site-update' object.id %}">edit</a>
+        <a class="btn btn-danger" href="{% url 'site-delete' object.id %}">delete</a>
       {% endif %}
     </div>
   </article>

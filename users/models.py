@@ -21,3 +21,7 @@ class Profile(UUIDModel):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+    # def get_absolute_url(self):
+    #     print("self: ", self.id, self.pk)
+    #     return reverse("public-profile", kwargs={"pk": self.id})

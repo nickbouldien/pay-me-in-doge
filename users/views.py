@@ -7,11 +7,9 @@ from .forms import ProfileUpdateForm
 
 def register(request):
     if request.method == "POST":
-        print("is post")
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            print("is valid")
             username = form.cleaned_data.get("username")
             messages.success(request, f"welcome, {username}!")
             return redirect("board-home")
@@ -37,4 +35,9 @@ def profile(request):
     context = {"p_form": p_form}
 
     return render(request, "users/profile.html", context)
+
+
+# def public_profile(request):
+#     # print("request: ", request.user)
+#     return render(request, "users/public_profile.html")
 

@@ -1,19 +1,21 @@
 {% extends "board/base.html" %}
 {% block content %}
   {% for site in sites %}
-  <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
-    <div class="media-body">
-      <div class="article-metadata">
-        <a class="mr-2" href="#">{{ site.poster }}</a>
-        <small class="text-muted">{{ site.date_posted | date:"M d, Y" }}</small>
+    <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
+      <div class="media-body">
+        <div class="article-metadata">
+
+          {# <a class="mr-2" href="{% url 'public-profile' pk=site.poster.profile.id %}">{{ site.poster }}</a> #}
+
+          <small class="text-muted">{{ site.date_posted | date:"M d, Y" }}</small>
+        </div>
+        <h2>
+          <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
+        </h2>
+        <a class="article-title" href="{{ site.link }}">{{ site.link }}</a>
+        <p>{{ site.upvotes }}</p>
       </div>
-      <h2>
-        <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
-      </h2>
-      <a class="article-title" href="{{ site.link }}">{{ site.link }}</a>
-      <p>{{ site.upvotes }}</p>
-    </div>
-  </article>
+    </article>
   {% endfor %}
 {% endblock content%}
