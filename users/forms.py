@@ -21,6 +21,8 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    dogecoin_wallet = forms.TextInput()
+
     class Meta:
         model = Profile
-        fields = ["image"]
+        fields = ["dogecoin_wallet", "image"]

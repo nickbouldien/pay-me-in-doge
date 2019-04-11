@@ -1,12 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinLengthValidator, RegexValidator
 from board.models import UUIDModel
 from PIL import Image
+
+alphanumeric = RegexValidator(
+    r"^[0-9a-zA-Z]*$", "Only alphanumeric characters are allowed."
+)
 
 
 class Profile(UUIDModel):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dogecoin_wallet = models.CharField(
+        max_length=34,
+        blank=True,
+        null=True,
+        validators=[alphanumeric, MinLengthValidator(34)],
+    )
     image = models.ImageField(default="default.png", upload_to="profile_pics")
 
     def __str__(self):
