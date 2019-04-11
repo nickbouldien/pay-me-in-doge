@@ -1,0 +1,11 @@
+{% extends "board/base.html" %}
+{% block content %}
+  <div class="content-section">
+    <h3>{{ user.username }}</h3>
+    <p>date joined: {{ user.date_joined | date:"M d, Y H:i:s" }}</p>
+    <!-- <img src="{{ user.profile.image.url }}" /> -->
+    <p>{{ user.username }}</p>
+    <!-- TODO - get all the user's sites that they posted -->
+
+  </div>
+{% endblock content%}

@@ -1,0 +1,21 @@
+{% extends "board/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="content-section">
+    <h3>{{ user.username }}</h3>
+    <p class="text-secondary">{{ user.email }}</p>
+    <p>date joined: {{ user.date_joined | date:"M d, Y H:i:s" }}</p>
+    <img src="{{ user.profile.image.url }}" />
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class='form-group'>
+        <legend class="mb-4 border-bottom">your profile info</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-dark" type="submit">update</button>
+      </div>
+    </form>
+  </div>
+{% endblock content%}

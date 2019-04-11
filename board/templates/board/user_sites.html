@@ -1,13 +1,15 @@
 {% extends "board/base.html" %}
 {% block content %}
+
+  <h2>sites entered by <code>{{ view.kwargs.username }}</code> - ({{ page_obj.paginator.count }})</h2>
   {% for site in sites %}
     <article class="media content-section">
       <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
       <div class="media-body">
         <div class="article-metadata">
-          {% if site.poster %}
-            <a class="mr-2" href="{% url 'user-sites' username=site.poster.username %}">{{ site.poster.username }}</a>
-          {% endif %}
+
+          <a class="mr-2" href="{% url 'user-sites' username=site.poster.username %}">{{ site.poster.username }}</a>
+
           <small class="text-muted">{{ site.date_posted | date:"M d, Y" }}</small>
         </div>
         <h2>

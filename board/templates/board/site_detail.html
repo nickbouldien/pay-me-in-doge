@@ -1,0 +1,28 @@
+{% extends "board/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.poster.profile.image.url }}" />
+    <div class="media-body">
+      <div class="article-metadata">
+        {% if site.poster %}
+          <a class="mr-2" href="{% url 'user-sites' username=site.poster.username %}">{{ site.poster.username }}</a>
+        {% endif %}
+        <small class="text-muted">{{ object.date_posted | date:"M d, Y" }}</small>
+      </div>
+      <h2>
+        <a class="article-title" href="{{ object.link }}">{{ object.name }}</a>
+      </h2>
+      <p>{{ object.upvotes }}</p>
+
+      {% if object.description %}
+        <h5>site description:</h5>
+        <p class="article-content">{{ object.description }}</p>
+      {% endif %}
+    
+      {% if object.poster == user %}
+        <a class="btn" href="{% url 'site-update' object.id %}">edit</a>
+        <a class="btn btn-danger" href="{% url 'site-delete' object.id %}">delete</a>
+      {% endif %}
+    </div>
+  </article>
+{% endblock content%}
