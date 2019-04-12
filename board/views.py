@@ -87,5 +87,5 @@ class UserSiteListView(ListView):
         context = super(UserSiteListView, self).get_context_data(**kwargs)
         # TODO - can I access the user without having to do this twice??
         user = get_object_or_404(User, username=self.kwargs.get("username"))
-        context["profile"] = Profile.objects.filter(user_id=user.id).first()
+        context["profile"] = get_object_or_404(Profile, user_id=user.id)
         return context
