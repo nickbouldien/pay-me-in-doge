@@ -1,7 +1,18 @@
 {% extends "board/base.html" %}
 {% block content %}
 
-  <h2>sites entered by <code>{{ view.kwargs.username }}</code> - ({{ page_obj.paginator.count }})</h2>
+  <h3>sites entered by <code>{{ view.kwargs.username }}</code> - ({{ page_obj.paginator.count }})</h3>
+  {% if profile.dogecoin_wallet %}
+    <p>
+      dogecoin wallet:
+      <input
+        type="text"
+        class="wallet"
+        value="{{ profile.dogecoin_wallet }}" 
+        readonly
+      />
+    </p>
+  {% endif %}
   {% for site in sites %}
     <article class="media content-section">
       <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />

@@ -10,6 +10,7 @@ from django.views.generic import (
     UpdateView,
 )
 from .models import Site
+from users.models import Profile
 
 
 def about(request):
@@ -81,3 +82,10 @@ class UserSiteListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
         return Site.objects.filter(poster=user).order_by("-upvotes")
+
+    def get_context_data(self, **kwargs):
+        context = super(UserSiteListView, self).get_context_data(**kwargs)
+        # TODO - can I access the user without having to do this twice??
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        context["profile"] = Profile.objects.filter(user_id=user.id).first()
+        return context
