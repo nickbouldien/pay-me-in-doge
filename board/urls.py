@@ -17,5 +17,6 @@ urlpatterns = [
     path("site/<uuid:pk>/delete/", SiteDeleteView.as_view(), name="site-delete"),
     path("site/<uuid:pk>/update/", SiteUpdateView.as_view(), name="site-update"),
     path("site/new/", SiteCreateView.as_view(), name="site-create"),
+    path("site/vote/", views.vote, name="site-vote"),  # ajax
     path("user/<str:username>/", UserSiteListView.as_view(), name="user-sites"),
 ]
