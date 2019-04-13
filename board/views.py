@@ -1,7 +1,11 @@
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.http import require_POST
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -24,6 +28,17 @@ def home(request):
 
 def resources(request):
     return render(request, "board/resources.html")
+
+
+@require_POST
+def vote(request):
+    site_id = request.POST.get("siteId", None)
+    vote = request.POST.get("vote", None)
+
+    print("site_id: ", site_id)
+    print("vote: ", vote)
+
+    return JsonResponse({"post": "good"})
 
 
 class SiteCreateView(LoginRequiredMixin, CreateView):
@@ -50,6 +65,7 @@ class SiteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
+@method_decorator(ensure_csrf_cookie, name="dispatch")
 class SiteListView(ListView):
     model = Site
     template_name = "board/home.html"
