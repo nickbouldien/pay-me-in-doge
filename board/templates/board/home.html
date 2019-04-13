@@ -1,7 +1,7 @@
 {% extends "board/base.html" %}
 {% block content %}
   {% for site in sites %}
-    <article class="media content-section">
+    <article class="media content-section" data-site-id="{{ site.id }}">
       <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
       <div class="media-body">
         <div class="article-metadata">
@@ -14,7 +14,11 @@
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
         <a class="article-title" href="{{ site.link }}">{{ site.link }}</a>
-        <p>{{ site.upvotes }}</p>
+        <div class="vote-container">
+          <button class="upvote">upvote</button>
+          <p>{{ site.upvotes }}</p>
+          <button class="downvote">downvote</button>
+        </div>
       </div>
     </article>
   {% endfor %}
