@@ -22,7 +22,7 @@ def about(request):
 
 
 def home(request):
-    context = {"sites": Site.objects.all().order_by("upvotes")}
+    context = {"sites": Site.objects.all().order_by("vote_score")}
     return render(request, "board/home.html", context)
 
 
@@ -70,7 +70,7 @@ class SiteListView(ListView):
     model = Site
     template_name = "board/home.html"
     context_object_name = "sites"
-    ordering = ["-upvotes"]
+    ordering = ["-vote_score"]
     paginate_by = 5
 
 
@@ -97,7 +97,7 @@ class UserSiteListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
-        return Site.objects.filter(poster=user).order_by("-upvotes")
+        return Site.objects.filter(poster=user).order_by("-vote_score")
 
     def get_context_data(self, **kwargs):
         context = super(UserSiteListView, self).get_context_data(**kwargs)

@@ -10,9 +10,11 @@
         <small class="text-muted">{{ object.date_posted | date:"M d, Y" }}</small>
       </div>
       <h2>
-        <a class="article-title" href="{{ object.link }}">{{ object.name }}</a>
+        <a class="article-title" href="{{ object.url }}">{{ object.name }}</a>
       </h2>
-      <p>{{ object.upvotes }}</p>
+
+      <!-- TODO - add voting buttons here  -->
+      <p>{{ object.vote_score }}</p>
 
       {% if object.description %}
         <h5>site description:</h5>

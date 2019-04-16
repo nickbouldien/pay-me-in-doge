@@ -13,10 +13,10 @@
         <h2>
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
-        <a class="article-title" href="{{ site.link }}">{{ site.link }}</a>
+        <a class="article-title" href="{{ site.link }}">{{ site.url }}</a>
         <div class="vote-container">
           <button class="btn btn-outline-primary vote upvote">upvote</button>
-          <p>{{ site.upvotes }}</p>
+          <p>{{ site.vote_score }}</p>
           <button class="btn btn-outline-danger vote downvote">downvote</button>
         </div>
       </div>
