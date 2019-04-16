@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "board.apps.BoardConfig",
     "users.apps.UsersConfig",
     "crispy_forms",
+    "vote",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

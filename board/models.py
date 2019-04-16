@@ -1,9 +1,10 @@
 import uuid
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.core.validators import MinValueValidator
 from django.urls import reverse
 from django.utils import timezone
+from vote.models import VoteModel
 
 # TODO - move this class out of here
 class UUIDModel(models.Model):
@@ -13,19 +14,19 @@ class UUIDModel(models.Model):
         abstract = True
 
 
-class Site(UUIDModel):
+class Site(VoteModel, models.Model):
     name = models.CharField(max_length=50)
     poster = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    link = models.CharField(max_length=50)
+    url = models.CharField(max_length=50)
     description = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    upvotes = models.IntegerField(default=0, validators=[MinValueValidator(0)])
 
     def __repr__(self):
-        return "Site('{}', '{}', '{}')".format(self.name, self.link, self.id)
+        return "Site( id - {}, '{}', '{}')".format(self.id, self.name, self.url)
 
     def __str__(self):
-        return "'{}': '{}' - '{}'".format(self.name, self.link, self.description)
+        return "'{}': '{}' - '{}'".format(self.name, self.url, self.description)
 
     def get_absolute_url(self):
         return reverse("site-detail", kwargs={"pk": self.pk})
+
