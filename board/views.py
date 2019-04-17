@@ -16,6 +16,8 @@ from django.views.generic import (
 from .models import Site
 from users.models import Profile
 
+votes = {"DOWNVOTE": -1, "UPVOTE": 1, "DELETE": 0}
+
 
 def about(request):
     return render(request, "board/about.html")
@@ -35,15 +37,39 @@ def vote(request):
     site_id = request.POST.get("siteId", None)
     vote = request.POST.get("vote", None)
 
-    print("site_id: ", site_id)
-    print("vote: ", vote)
+    if not site_id or not vote:
+        return JsonResponse({"message": "site_id and vote are required."}, status=400)
 
-    return JsonResponse({"post": "good"})
+    site = get_object_or_404(Site, pk=site_id)
+
+    # dont let the user vote for their own site
+    if site.poster.id == request.user.id:
+        return JsonResponse({"message": "can't vote for your own site"}, status=400)
+
+    try:
+        vote_num = int(vote)
+        if vote_num == votes["UPVOTE"]:
+            site.votes.up(request.user.id)
+        elif vote_num == votes["DOWNVOTE"]:
+            site.votes.down(request.user.id)
+        elif vote_num == votes["DELETE"]:
+            site.votes.delete(request.user.id)
+        else:
+            return JsonResponse({"message": "vote must be -1, 0, or 1"}, status=400)
+    except:
+        return JsonResponse(
+            {"message": f"error registering vote {vote} for site with id {site_id}"},
+            status=400,
+        )
+
+    return JsonResponse(
+        {"message": f"registered vote {vote} for site with id {site_id}"}
+    )
 
 
 class SiteCreateView(LoginRequiredMixin, CreateView):
     model = Site
-    fields = ["name", "link", "description"]
+    fields = ["name", "url", "description"]
 
     def form_valid(self, form):
         form.instance.poster = self.request.user
@@ -76,7 +102,7 @@ class SiteListView(ListView):
 
 class SiteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Site
-    fields = ["name", "link", "description"]
+    fields = ["name", "url", "description"]
 
     def form_valid(self, form):
         form.instance.poster = self.request.user

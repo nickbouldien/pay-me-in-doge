@@ -26,7 +26,7 @@
         <h2>
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
-        <a class="article-title" href="{{ site.link }}">{{ site.link }}</a>
+        <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
         <p>{{ site.upvotes }}</p>
       </div>
     </article>

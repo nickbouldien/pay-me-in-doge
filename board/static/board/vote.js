@@ -5,6 +5,11 @@ $(".vote").click(function() {
 
   var csrftoken = getCookie("csrftoken") || "";
 
+  if (!csrftoken) {
+    // TODO - handle this...
+    return;
+  }
+
   // TODO - functionality to 'remove' vote (set back to 0)
   var vote = ctx.hasClass("upvote") ? 1 : -1; // clicked upvote or downvote
   var siteId = ctx.closest("article").data("site-id");
@@ -25,7 +30,6 @@ $(".vote").click(function() {
       // change css class of buttons
       if (vote === 1) {
         ctx.addClass("active");
-        window.ctx = ctx;
         ctx
           .closest(".vote-container")
           .find(".downvote")
@@ -45,7 +49,8 @@ $(".vote").click(function() {
       }
     },
     fail: function(err) {
-      alert("Data Loaded: " + err);
+      // TODO - handle this
+      console.error("error :", err);
     }
   });
 });
