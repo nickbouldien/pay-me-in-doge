@@ -21,6 +21,8 @@ from users.models import Profile
 
 votes = {"DOWNVOTE": -1, "UPVOTE": 1, "DELETE": 0}
 
+MIN_VOTE_SCORE = 5
+
 
 def ajax_login_required(view):
     @wraps(view)
@@ -43,8 +45,6 @@ def resources(request):
 @ajax_login_required
 @require_POST
 def vote(request):
-    print("request.user: ", request.user)
-
     site_id = request.POST.get("siteId", None)
     vote = request.POST.get("vote", None)
 
@@ -110,7 +110,9 @@ class SiteListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        all_sites = Site.objects.all().order_by("-vote_score")
+        all_sites = Site.objects.filter(vote_score__gt=-MIN_VOTE_SCORE).order_by(
+            "-vote_score"
+        )
 
         sites = []
 
@@ -155,7 +157,10 @@ class UserSiteListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
-        return Site.objects.filter(poster=user).order_by("-vote_score")
+
+        return Site.objects.filter(
+            poster=user, vote_score__gt=-MIN_VOTE_SCORE
+        ).order_by("-vote_score")
 
     def get_context_data(self, **kwargs):
         context = super(UserSiteListView, self).get_context_data(**kwargs)
