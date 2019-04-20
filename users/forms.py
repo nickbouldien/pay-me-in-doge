@@ -22,7 +22,6 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    dogecoin_wallet = forms.TextInput()
     dogecoin_wallet = forms.CharField(
         min_length=34,
         validators=[

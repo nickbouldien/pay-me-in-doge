@@ -4,8 +4,9 @@ from django.core.validators import MinLengthValidator, RegexValidator
 from board.models import UUIDModel
 from PIL import Image
 
-alphanumeric = RegexValidator(
-    r"^[0-9a-zA-Z]*$", "Only alphanumeric characters are allowed."
+dogecoin_address = RegexValidator(
+    "^(D)[^OIYWa-z][A-Za-z0-9]{32}$",
+    message="your dogecoin wallet address should start with the letter 'D' and be a combination of letters and numbers",
 )
 
 
@@ -16,7 +17,7 @@ class Profile(UUIDModel):
         max_length=34,
         blank=True,
         null=True,
-        validators=[alphanumeric, MinLengthValidator(34)],
+        validators=[dogecoin_address, MinLengthValidator(34)],
     )
     image = models.ImageField(default="default.png", upload_to="profile_pics")
 
