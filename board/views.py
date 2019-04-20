@@ -1,5 +1,7 @@
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -13,27 +15,36 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+from functools import wraps
 from .models import Site
 from users.models import Profile
 
 votes = {"DOWNVOTE": -1, "UPVOTE": 1, "DELETE": 0}
 
 
+def ajax_login_required(view):
+    @wraps(view)
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return view(request, *args, **kwargs)
+
+    return wrapper
+
+
 def about(request):
     return render(request, "board/about.html")
-
-
-def home(request):
-    context = {"sites": Site.objects.all().order_by("vote_score")}
-    return render(request, "board/home.html", context)
 
 
 def resources(request):
     return render(request, "board/resources.html")
 
 
+@ajax_login_required
 @require_POST
 def vote(request):
+    print("request.user: ", request.user)
+
     site_id = request.POST.get("siteId", None)
     vote = request.POST.get("vote", None)
 
@@ -96,8 +107,29 @@ class SiteListView(ListView):
     model = Site
     template_name = "board/home.html"
     context_object_name = "sites"
-    ordering = ["-vote_score"]
     paginate_by = 5
+
+    def get_queryset(self):
+        all_sites = Site.objects.all().order_by("-vote_score")
+
+        sites = []
+
+        for site in all_sites:
+            vote = 0  # default (they didn't vote on the site or deleted their vote)
+            if self.request.user.is_authenticated:
+                check = {"user_id": self.request.user.id}
+                user_votes_up = site.votes.user_ids(0)
+                user_votes_down = site.votes.user_ids(1)
+
+                if check in user_votes_up.values("user_id"):
+                    vote = 1
+                elif check in user_votes_down.values("user_id"):
+                    vote = -1
+
+            site.vote = vote
+            sites.append(site)
+
+        return sites
 
 
 class SiteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

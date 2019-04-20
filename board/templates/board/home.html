@@ -15,9 +15,26 @@
         </h2>
         <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
         <div class="vote-container">
-          <button class="btn btn-outline-primary vote upvote">upvote</button>
-          <p>{{ site.vote_score }}</p>
-          <button class="btn btn-outline-danger vote downvote">downvote</button>
+          {% if not site.poster.id == request.user.id %}
+            {% if site.vote %}
+              {% if site.vote == 1 %}
+                <button class="btn btn-outline-primary vote upvote active">upvote</button>
+                <p>score: {{ site.vote_score }}</p>
+                <button class="btn btn-outline-danger vote downvote">downvote</button>
+              {% elif site.vote == -1 %}
+                <button class="btn btn-outline-primary vote upvote">upvote</button>
+                <p>score: {{ site.vote_score }}</p>
+                <button class="btn btn-outline-danger vote downvote active">downvote</button>
+              {% endif %}
+            {% else %}
+              <button class="btn btn-outline-primary vote upvote">upvote</button>
+              <p>score: {{ site.vote_score }}</p>
+              <button class="btn btn-outline-danger vote downvote">downvote</button>
+            {% endif %}
+          {% else %}
+            <!-- don't show the vote buttons for the sites the current user posted -->
+            <p>score: {{ site.vote_score }}</p>
+          {% endif %}
         </div>
       </div>
     </article>
