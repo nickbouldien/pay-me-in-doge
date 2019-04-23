@@ -16,22 +16,14 @@ from django.views.generic import (
     UpdateView,
 )
 from functools import wraps
-from .models import Site
+from common.util.decorators import ajax_login_required
 from users.models import Profile
+from .forms import SiteCreateForm, SiteUpdateForm
+from .models import Site
 
 votes = {"DOWNVOTE": -1, "UPVOTE": 1, "DELETE": 0}
 
 MIN_VOTE_SCORE = -5
-
-
-def ajax_login_required(view):
-    @wraps(view)
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            raise PermissionDenied
-        return view(request, *args, **kwargs)
-
-    return wrapper
 
 
 def about(request):
@@ -80,7 +72,7 @@ def vote(request):
 
 class SiteCreateView(LoginRequiredMixin, CreateView):
     model = Site
-    fields = ["name", "url", "description"]
+    form_class = SiteCreateForm
 
     def form_valid(self, form):
         form.instance.poster = self.request.user
@@ -136,7 +128,8 @@ class SiteListView(ListView):
 
 class SiteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Site
-    fields = ["name", "url", "description"]
+    form_class = SiteUpdateForm
+    template_name = "board/site.html"
 
     def form_valid(self, form):
         form.instance.poster = self.request.user

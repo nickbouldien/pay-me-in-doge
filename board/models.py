@@ -1,10 +1,10 @@
 import uuid
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.validators import MinValueValidator
 from django.urls import reverse
 from django.utils import timezone
 from vote.models import VoteModel
+from common.util.validators import validate_url
 
 # TODO - move this class out of here
 class UUIDModel(models.Model):
@@ -17,7 +17,7 @@ class UUIDModel(models.Model):
 class Site(VoteModel, models.Model):
     name = models.CharField(max_length=50)
     poster = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    url = models.CharField(max_length=50)
+    url = models.CharField(max_length=50, validators=[validate_url])
     description = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
 
