@@ -1,7 +1,7 @@
 {% extends "board/base.html" %}
 {% block content %}
   {% for site in sites %}
-    <article class="media content-section">
+    <article class="media content-section" data-site-id="{{ site.id }}">
       <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
       <div class="media-body">
         <div class="article-metadata">
@@ -13,8 +13,29 @@
         <h2>
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
-        <a class="article-title" href="{{ site.link }}">{{ site.link }}</a>
-        <p>{{ site.upvotes }}</p>
+        <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
+        <div class="vote-container">
+          {% if not site.poster.id == request.user.id %}
+            {% if site.vote %}
+              {% if site.vote == 1 %}
+                <button class="btn btn-outline-primary vote upvote active">upvote</button>
+                <p>score: {{ site.vote_score }}</p>
+                <button class="btn btn-outline-danger vote downvote">downvote</button>
+              {% elif site.vote == -1 %}
+                <button class="btn btn-outline-primary vote upvote">upvote</button>
+                <p>score: {{ site.vote_score }}</p>
+                <button class="btn btn-outline-danger vote downvote active">downvote</button>
+              {% endif %}
+            {% else %}
+              <button class="btn btn-outline-primary vote upvote">upvote</button>
+              <p>score: {{ site.vote_score }}</p>
+              <button class="btn btn-outline-danger vote downvote">downvote</button>
+            {% endif %}
+          {% else %}
+            <!-- don't show the vote buttons for the sites the current user posted -->
+            <p>score: {{ site.vote_score }}</p>
+          {% endif %}
+        </div>
       </div>
     </article>
   {% endfor %}
