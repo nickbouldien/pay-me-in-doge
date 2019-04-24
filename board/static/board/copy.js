@@ -1,16 +1,27 @@
 $(document).ready(function() {
   var clipboard = new ClipboardJS(".clipboard");
 
-  clipboard.on("success", function(e) {
-    console.info("Action:", e.action);
-    console.info("Text:", e.text);
-    console.info("Trigger:", e.trigger);
+  var reference = $(".clipboard");
+  var popover = $(".popup");
 
+  popover.hide();
+
+  clipboard.on("success", function(e) {
     e.clearSelection();
+
+    popover.show();
+
+    var popper = new Popper(reference, popover, {
+      placement: "bottom"
+    });
   });
 
   clipboard.on("error", function(e) {
-    console.error("Action:", e.action);
-    console.error("Trigger:", e.trigger);
+    // TODO - handle this
+    console.error("error copying to clipboard: ", e);
+  });
+
+  $(".clipboard").on("blur", function() {
+    popover.hide();
   });
 });
