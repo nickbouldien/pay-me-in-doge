@@ -85,12 +85,50 @@ a.article-title:hover {
   border-color: #17a2b8;
 }
 
+.clipboard {
+  height: 28px;
+  margin-top: -3px;
+}
+
+.clipboard:hover {
+  background-color: #ddd;
+  background-image: linear-gradient(#eee, #ddd);
+  border-color: #ccc;
+}
+
+.clippy {
+  margin-top: -13px;
+  position: relative;
+  width: 13px;
+}
+
 .content-section {
   background: #fff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+}
+
+/* https://jsfiddle.net/q6Lmqh8h/634/ */
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+  font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+  padding-right: 0;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -103,4 +141,17 @@ a.article-title:hover {
 
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
+}
+
+.wallet {
+  min-width: 310px;
+  border: 1px solid #dddddd;
+}
+
+.wallet::before {
+  content: "Ð";
+}
+
+.wallet-input {
+  display: inline-block;
 }
