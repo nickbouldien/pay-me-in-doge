@@ -68,6 +68,10 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+.arrow-icon {
+  height: 13px;
+}
+
 .bg-blue-dianne {
   background-color: #1e4151;
 }
@@ -168,4 +172,12 @@ a.article-title:hover {
 
 .wallet-input {
   display: inline-block;
+}
+
+.vote-container * {
+  display: inline-block;
+}
+
+.vote-container p {
+  margin: 0 8px;
 }

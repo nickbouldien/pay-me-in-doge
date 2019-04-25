@@ -14,22 +14,34 @@
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
         <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
-        <div class="vote-container">
+        <div class="vote-container mt-2">
           {% if not site.poster.id == request.user.id %}
             {% if site.vote %}
               {% if site.vote == 1 %}
-                <button class="btn btn-outline-primary vote upvote active">upvote</button>
+                <button class="btn btn-outline-primary vote upvote active">
+                  <span class="oi oi-arrow-thick-top"></span>
+                </button>
                 <p>score: {{ site.vote_score }}</p>
-                <button class="btn btn-outline-danger vote downvote">downvote</button>
+                <button class="btn btn-outline-danger vote downvote">
+                  <span class="oi oi-arrow-thick-bottom"></span>
+                </button>
               {% elif site.vote == -1 %}
-                <button class="btn btn-outline-primary vote upvote">upvote</button>
+                <button class="btn btn-outline-primary vote upvote">
+                  <span class="oi oi-arrow-thick-top"></span>
+                </button>
                 <p>score: {{ site.vote_score }}</p>
-                <button class="btn btn-outline-danger vote downvote active">downvote</button>
+                <button class="btn btn-outline-danger vote downvote active">
+                  <span class="oi oi-arrow-thick-bottom"></span>
+                </button>
               {% endif %}
             {% else %}
-              <button class="btn btn-outline-primary vote upvote">upvote</button>
+              <button class="btn btn-outline-primary vote upvote">
+                <span class="oi oi-arrow-thick-top"></span>
+              </button>
               <p>score: {{ site.vote_score }}</p>
-              <button class="btn btn-outline-danger vote downvote">downvote</button>
+              <button class="btn btn-outline-danger vote downvote">
+                <span class="oi oi-arrow-thick-bottom"></span>
+              </button>
             {% endif %}
           {% else %}
             <!-- don't show the vote buttons for the sites the current user posted -->
