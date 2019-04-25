@@ -15,7 +15,7 @@
         <h2>
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
-        <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
+        <a class="article-title" href="{{ site.url }}" target="_blank">{{ site.url }}</a>
         <div class="vote-container mt-2">
           {% if not site.poster.id == request.user.id %}
             {% if site.vote %}
