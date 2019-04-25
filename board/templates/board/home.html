@@ -2,7 +2,9 @@
 {% block content %}
   {% for site in sites %}
     <article class="media content-section" data-site-id="{{ site.id }}">
-      <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
+      <a href="{% url 'user-sites' username=site.poster.username %}">
+        <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
+      </a>
       <div class="media-body">
         <div class="article-metadata">
           {% if site.poster %}
