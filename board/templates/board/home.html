@@ -45,7 +45,13 @@
             {% endif %}
           {% else %}
             <!-- don't show the vote buttons for the sites the current user posted -->
+            <a class="btn btn-outline-secondary" href="{% url 'site-update' pk=site.id %}" title="edit site">
+              <span class="oi oi-pencil"></span>
+            </a>
             <p>score: {{ site.vote_score }}</p>
+            <a class="btn btn-outline-danger" href="{% url 'site-delete' pk=site.id %}" title="delete site">
+              <span class="oi oi-x"></span>
+            </a>
           {% endif %}
         </div>
       </div>
