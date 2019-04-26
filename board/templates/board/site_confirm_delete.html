@@ -8,7 +8,7 @@
         <h3>are you sure you want to delete the site "{{ object.name }}"</h3>
       </fieldset>
       <div class="form-group">
-        <button class="btn btn-warning" type="submit">delete</button>
+        <button class="btn btn-danger" type="submit">delete</button>
         <a class="btn btn-dark" href="{% url 'site-detail' object.pk %}">cancel</a>
       </div>
     </form>

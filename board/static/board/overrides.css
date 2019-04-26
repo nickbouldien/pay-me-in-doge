@@ -68,6 +68,10 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+.arrow-icon {
+  height: 13px;
+}
+
 .bg-blue-dianne {
   background-color: #1e4151;
 }
@@ -85,12 +89,64 @@ a.article-title:hover {
   border-color: #17a2b8;
 }
 
+.clipboard {
+  height: 28px;
+  margin-top: -3px;
+}
+
+.clipboard:hover {
+  background-color: #ddd;
+  background-image: linear-gradient(#eee, #ddd);
+  border-color: #ccc;
+}
+
+.clippy {
+  margin-top: -13px;
+  position: relative;
+  width: 13px;
+}
+
 .content-section {
   background: #fff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+}
+
+/* https://jsfiddle.net/q6Lmqh8h/634/ */
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+  font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+  padding-right: 0;
+}
+
+.popup {
+  background: #333333;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 4px;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  width: 90px;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -103,4 +159,26 @@ a.article-title:hover {
 
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
+}
+
+.wallet {
+  border: 1px solid #dddddd;
+  min-width: 310px;
+  padding-left: 6px;
+}
+
+.wallet::before {
+  content: "Ð";
+}
+
+.wallet-input {
+  display: inline-block;
+}
+
+.vote-container * {
+  display: inline-block;
+}
+
+.vote-container p {
+  margin: 0 8px;
 }

@@ -1,17 +1,33 @@
 {% extends "board/base.html" %}
+
+{% load static %}
 {% block content %}
 
   <h3>sites entered by <code>{{ view.kwargs.username }}</code> - ({{ page_obj.paginator.count }})</h3>
   {% if profile.dogecoin_wallet %}
-    <p>
-      dogecoin wallet:
-      <input
-        type="text"
-        class="wallet"
-        value="{{ profile.dogecoin_wallet }}" 
-        readonly
-      />
-    </p>
+    <div>
+      <span>dogecoin wallet:</span>
+      <div class="wallet-input form-group">
+        <input
+          type="text"
+          class="wallet"
+          id="walletAddress"
+          value="{{ profile.dogecoin_wallet }}" 
+          readonly
+        />
+        <button class="btn clipboard" data-clipboard-target="#walletAddress">
+          <img
+            src="{% static 'assets/clippy.svg' %}"
+            alt="Copy to clipboard"
+            class="clippy"
+            title="Copy to clipboard"
+          >
+        </button>
+        <div class="popup" style="display: none;">
+          copied to clipboard
+        </div>
+      </div>
+    </div>
   {% endif %}
   {% for site in sites %}
     <article class="media content-section">
@@ -26,7 +42,7 @@
         <h2>
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
-        <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
+        <a class="article-title" href="{{ site.url }}" target="_blank">{{ site.url }}</a>
         <p>{{ site.upvotes }}</p>
       </div>
     </article>

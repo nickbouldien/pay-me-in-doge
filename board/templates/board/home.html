@@ -2,7 +2,9 @@
 {% block content %}
   {% for site in sites %}
     <article class="media content-section" data-site-id="{{ site.id }}">
-      <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
+      <a href="{% url 'user-sites' username=site.poster.username %}">
+        <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
+      </a>
       <div class="media-body">
         <div class="article-metadata">
           {% if site.poster %}
@@ -13,27 +15,45 @@
         <h2>
           <a class="article-title" href="{% url 'site-detail' pk=site.id %}">{{ site.name }}</a>
         </h2>
-        <a class="article-title" href="{{ site.url }}">{{ site.url }}</a>
-        <div class="vote-container">
+        <a class="article-title" href="{{ site.url }}" target="_blank">{{ site.url }}</a>
+        <div class="vote-container mt-2">
           {% if not site.poster.id == request.user.id %}
             {% if site.vote %}
               {% if site.vote == 1 %}
-                <button class="btn btn-outline-primary vote upvote active">upvote</button>
+                <button class="btn btn-outline-primary vote upvote active" title="upvote site">
+                  <span class="oi oi-arrow-thick-top"></span>
+                </button>
                 <p>score: {{ site.vote_score }}</p>
-                <button class="btn btn-outline-danger vote downvote">downvote</button>
+                <button class="btn btn-outline-danger vote downvote" title="downvote site">
+                  <span class="oi oi-arrow-thick-bottom"></span>
+                </button>
               {% elif site.vote == -1 %}
-                <button class="btn btn-outline-primary vote upvote">upvote</button>
+                <button class="btn btn-outline-primary vote upvote" title="upvote site">
+                  <span class="oi oi-arrow-thick-top"></span>
+                </button>
                 <p>score: {{ site.vote_score }}</p>
-                <button class="btn btn-outline-danger vote downvote active">downvote</button>
+                <button class="btn btn-outline-danger vote downvote active" title="downvote site">
+                  <span class="oi oi-arrow-thick-bottom"></span>
+                </button>
               {% endif %}
             {% else %}
-              <button class="btn btn-outline-primary vote upvote">upvote</button>
+              <button class="btn btn-outline-primary vote upvote" title="upvote site">
+                <span class="oi oi-arrow-thick-top"></span>
+              </button>
               <p>score: {{ site.vote_score }}</p>
-              <button class="btn btn-outline-danger vote downvote">downvote</button>
+              <button class="btn btn-outline-danger vote downvote" title="downvote site">
+                <span class="oi oi-arrow-thick-bottom"></span>
+              </button>
             {% endif %}
           {% else %}
             <!-- don't show the vote buttons for the sites the current user posted -->
+            <a class="btn btn-outline-secondary" href="{% url 'site-update' pk=site.id %}" title="edit site">
+              <span class="oi oi-pencil"></span>
+            </a>
             <p>score: {{ site.vote_score }}</p>
+            <a class="btn btn-outline-danger" href="{% url 'site-delete' pk=site.id %}" title="delete site">
+              <span class="oi oi-x"></span>
+            </a>
           {% endif %}
         </div>
       </div>

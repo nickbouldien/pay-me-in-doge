@@ -81,6 +81,26 @@ class SiteCreateView(LoginRequiredMixin, CreateView):
 
 class SiteDetailView(DetailView):
     model = Site
+    context_object_name = "site"
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteDetailView, self).get_context_data(**kwargs)
+
+        site = get_object_or_404(Site, pk=self.kwargs["pk"])
+
+        vote = 0  # default (they didn't vote on the site or deleted their vote)
+        if self.request.user.is_authenticated:
+            check = {"user_id": self.request.user.id}
+            user_votes_up = site.votes.user_ids(0)
+            user_votes_down = site.votes.user_ids(1)
+
+            if check in user_votes_up.values("user_id"):
+                vote = 1
+            elif check in user_votes_down.values("user_id"):
+                vote = -1
+
+        context["vote"] = vote
+        return context
 
 
 class SiteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

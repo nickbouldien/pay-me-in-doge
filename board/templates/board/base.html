@@ -9,8 +9,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap.min.css' %}"></link>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/open-iconic-bootstrap.css' %}"></link>
 
     <link rel="stylesheet" type="text/css" href="{% static 'board/overrides.css' %}"></link>
 
@@ -54,6 +58,9 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'site-create' %}">
+                  <span class="oi oi-plus"></span>
+                </a>
                 <a class="nav-item nav-link" href="{% url 'profile' %}">
                   profile
                 </a>
@@ -110,9 +117,12 @@
 
     <script src="{% static 'vendor/bootstrap.min.js' %}"></script>
 
+    <script src="{% static 'vendor/clipboard.min.js' %}"></script>
+    
     <script src="{% static 'board/utils.js' %}"></script>
 
     <script src="{% static 'board/vote.js' %}"></script>
 
+    <script src="{% static 'board/copy.js' %}"></script>
   </body>
 </html>
