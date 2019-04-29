@@ -55,6 +55,8 @@ $(".vote").click(function() {
           .find(".vote")
           .removeClass("active");
       }
+
+      location.reload(); // FIXME - temporary hack
     },
     fail: function(err) {
       // TODO - handle this
