@@ -3,8 +3,11 @@ from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
@@ -70,9 +73,10 @@ def vote(request):
     )
 
 
-class SiteCreateView(LoginRequiredMixin, CreateView):
+class SiteCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Site
     form_class = SiteCreateForm
+    success_message = "site created successfully"
 
     def form_valid(self, form):
         form.instance.poster = self.request.user
@@ -103,9 +107,16 @@ class SiteDetailView(DetailView):
         return context
 
 
-class SiteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class SiteDeleteView(
+    SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, DeleteView
+):
     model = Site
-    success_url = "/"
+    success_url = reverse_lazy("board-home")
+    success_message = "site deleted successfully"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(SiteDeleteView, self).delete(request, *args, **kwargs)
 
     def test_func(self):
         site = self.get_object()
@@ -146,9 +157,12 @@ class SiteListView(ListView):
         return sites
 
 
-class SiteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class SiteUpdateView(
+    SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView
+):
     model = Site
     form_class = SiteUpdateForm
+    success_message = "site updated successfully"
     template_name = "board/site.html"
 
     def form_valid(self, form):
