@@ -175,6 +175,11 @@ a.article-title:hover {
   display: inline-block;
 }
 
+ul.messages {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
 .vote-container * {
   display: inline-block;
 }
