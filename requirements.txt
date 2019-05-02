@@ -1,6 +1,7 @@
 appdirs==1.4.3
 attrs==19.1.0
 black==19.3b0
+certifi==2019.3.9
 Click==7.0
 Django==2.2
 django-crispy-forms==1.7.2
@@ -9,5 +10,7 @@ Pillow==6.0.0
 psycopg2==2.8
 psycopg2-binary==2.8.2
 pytz==2018.9
+sentry-sdk==0.7.14
 sqlparse==0.3.0
 toml==0.10.0
+urllib3==1.25.2
