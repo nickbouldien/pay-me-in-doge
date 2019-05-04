@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sites",
     "django.contrib.staticfiles",
+    "storages",
 ]
 
 SITE_ID = 1
@@ -147,3 +148,11 @@ EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 # SENDGRID_SANDBOX_MODE_IN_DEBUG = False  # sends emails in debug when set to False
+
+# AWS S3
+AWS_ACCESS_KEY_ID = os.environ.get("PMID_AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("PMID_AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("PMID_AWS_STORAGE_BUCKET_NAME")
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
