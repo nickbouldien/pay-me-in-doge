@@ -11,7 +11,6 @@ dogecoin_address = RegexValidator(
 
 
 class Profile(UUIDModel):
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dogecoin_wallet = models.CharField(
         max_length=34,
