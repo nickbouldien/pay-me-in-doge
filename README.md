@@ -12,6 +12,16 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+### with docker
+```bash
+docker build -t paymeindoge:latest .
+```
+
+```bash
+docker run --rm --name pay-me-in-doge -e "PORT=8000" -e "DEBUG=1" -p 8000:8000 paymeindoge:latest
+```
+
+
 ## sample data/commands
 look at the following markdown file to see data/commands to quickly experiment in the shell (run `python manage.py shell`)
 [shell data/commands](docs/shell_sample.md)

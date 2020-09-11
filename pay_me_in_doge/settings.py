@@ -19,6 +19,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+# TODO - get all config from env vars
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "y+twdla!3jxr-s(%it5u3ap^!i$sr1t&wpt9envax*e_n%k#iw"
 
@@ -141,4 +144,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
-
