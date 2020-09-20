@@ -19,14 +19,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# TODO - get all config from env vars
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "y+twdla!3jxr-s(%it5u3ap^!i$sr1t&wpt9envax*e_n%k#iw"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = bool(os.environ.get("DEBUG", False))
-print("debug: ", DEBUG)
+print("debug mode: ", DEBUG)
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"] if DEBUG else [".paymeindoge.world"]
 
@@ -86,11 +84,11 @@ WSGI_APPLICATION = "pay_me_in_doge.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB", "paymeindoge"),
-        "USER": os.environ.get("POSTGRES_USER", "nick"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", ""),
-        "HOST": "db",
-        "PORT": "5432",
+        "NAME": os.environ.get("DB_NAME", "paymeindoge"),
+        "USER": os.environ.get("DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("DB_PASS", "postgres"),
+        "HOST": os.environ.get("DB_HOST", "db"),
+        "PORT": os.environ.get("DB_PORT", 5432),
     }
 }
 
@@ -141,7 +139,7 @@ LOGIN_URL = "login"
 # email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
