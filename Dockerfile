@@ -1,13 +1,13 @@
 FROM python:3.7-alpine
 
-WORKDIR /app
+WORKDIR /code
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DEBUG 0
 
-COPY ./requirements.txt .
+COPY ./requirements.txt /code
 
 # update and install deps
 RUN apk update \
@@ -16,12 +16,14 @@ RUN apk update \
      && pip install -r requirements.txt --no-cache-dir  \
      && apk --purge del .build-deps
 
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 # copy project files
-COPY . .
+COPY . /code/
 
 # add and run as a non-root user
 RUN adduser -D appuser
 USER appuser
 
-# run gunicorn
-CMD gunicorn pay_me_in_doge.wsgi:application --bind 0.0.0.0:$PORT
+ENTRYPOINT ["/docker-entrypoint.sh"]

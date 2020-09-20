@@ -25,8 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "y+twdla!3jxr-s(%it5u3ap^!i$sr1t&wpt9envax*e_n%k#iw"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", False))
+print("debug: ", DEBUG)
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"] if DEBUG else [".paymeindoge.world"]
 
@@ -86,10 +86,10 @@ WSGI_APPLICATION = "pay_me_in_doge.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "paymeindoge",
-        "USER": "nick",
-        "PASSWORD": "",
-        "HOST": "127.0.0.1",
+        "NAME": os.environ.get("POSTGRES_DB", "paymeindoge"),
+        "USER": os.environ.get("POSTGRES_USER", "nick"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", ""),
+        "HOST": "db",
         "PORT": "5432",
     }
 }
@@ -127,6 +127,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"

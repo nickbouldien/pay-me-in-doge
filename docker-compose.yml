@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  db:
+    image: "postgres:11.9-alpine"
+    container_name: pay-me-in-doge-postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=paymeindoge
+      - POSTGRES_USER=nick
+      - POSTGRES_PASSWORD=""
+
+  web:
+    build: .
+    command: /bin/sh -c "code/docker-entrypoint.sh"
+#    command: gunicorn pay_me_in_doge.wsgi:application --bind 0.0.0.0:8000
+    container_name: pay-me-in-doge
+    environment:
+      - DEBUG="true"
+      - POSTGRES_DB=paymeindoge
+      - POSTGRES_USER=nick
+      - POSTGRES_PASSWORD=""
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
+volumes:
+  db-data:

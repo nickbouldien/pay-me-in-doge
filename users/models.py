@@ -19,7 +19,8 @@ class Profile(UUIDModel):
         null=True,
         validators=[dogecoin_address, MinLengthValidator(34)],
     )
-    image = models.ImageField(default="default.png", upload_to="profile_pics")
+    # image = models.ImageField(default="default.png", upload_to="profile_pics")
+    image = models.CharField(max_length=240, null=True)
 
     def __str__(self):
         return f"{self.user.username} Profile"

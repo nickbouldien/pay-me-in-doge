@@ -34,7 +34,7 @@ look at the following markdown file to see data/commands to quickly experiment i
 ## sources
 
 ### django
-- [http://ccbv.co.uk/](class based views)
+- [class based views](http://ccbv.co.uk/)
 
 
 ### dogecoin
