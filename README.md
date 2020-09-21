@@ -1,9 +1,39 @@
-# paymeindoge
-a (vanilla) django app that lets users list sites that accept dogecoin as payment
+# pay me in doge
+a django app that lets users list websites that accept dogecoin as payment
+
+## setup
+### with docker-compose
+```bash
+docker-compose up
+```
+
+### with docker
+```bash
+docker build -t paymeindoge:latest .
+```
+
+```bash
+docker run --rm --name pay-me-in-doge -e "PORT=8000" -e "DEBUG=1" -p 8000:8000 paymeindoge:latest
+```
+
+### without docker
+```bash
+python3.7 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+```bash
+python manage.py runserver
+```
+
+## example screenshot
+![pay-me-in-doge screenshot](docs/example.png)
+
 
 ## sample data/commands
-look at the following markdown file to see data/commands to quickly experiment in the shell (run `python manage.py shell` )
-[shell data/commands](shell_sample.md)
+look at the following markdown file to see data/commands to quickly experiment in the shell (run `python manage.py shell`)
+[shell data/commands](docs/shell_sample.md)
 
 
 ## installed apps
@@ -13,7 +43,7 @@ look at the following markdown file to see data/commands to quickly experiment i
 ## sources
 
 ### django
-- [http://ccbv.co.uk/](class based views)
+- [class based views](http://ccbv.co.uk/)
 
 
 ### dogecoin

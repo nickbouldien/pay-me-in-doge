@@ -44,7 +44,6 @@ urlpatterns = [
         name="password_reset_done",
     ),
     path("profile/", user_views.profile, name="profile"),
-    # path("profile/<uuid:pk>/", user_views.public_profile, name="public-profile"),
     path("register/", user_views.register, name="register"),
     path("", include("board.urls")),
 ]

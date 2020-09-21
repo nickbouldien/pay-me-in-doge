@@ -1,4 +1,6 @@
 from django.urls import path
+
+from . import views
 from .views import (
     SiteCreateView,
     SiteDeleteView,
@@ -7,7 +9,6 @@ from .views import (
     SiteUpdateView,
     UserSiteListView,
 )
-from . import views
 
 urlpatterns = [
     path("", SiteListView.as_view(), name="board-home"),

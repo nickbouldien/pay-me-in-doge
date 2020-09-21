@@ -1,5 +1,9 @@
 # source - https://www.codingforentrepreneurs.com/blog/django-virtualenv-python-gitignore-file/
 
+## editor settings
+.idea
+.vscode
+
 .DS_STORE
 
 # sqlite
@@ -40,6 +44,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+static/
+staticfiles/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

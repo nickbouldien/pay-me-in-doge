@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileUpdateForm, UserRegisterForm, UserUpdateForm
+from .forms import ProfileUpdateForm, UserUpdateForm
 
 
 def register(request):
@@ -38,9 +38,3 @@ def profile(request):
     context = {"u_form": u_form, "p_form": p_form}
 
     return render(request, "users/profile.html", context)
-
-
-# def public_profile(request):
-#     # print("request: ", request.user)
-#     return render(request, "users/public_profile.html")
-
