@@ -17,11 +17,7 @@ class Profile(UUIDModel):
         null=True,
         validators=[dogecoin_address, MinLengthValidator(34)],
     )
-    image = models.CharField(max_length=240, null=True)
+    image = models.CharField(max_length=240, default="default.png")
 
     def __str__(self):
         return f"{self.user.username} Profile"
-
-    # def get_absolute_url(self):
-    #     print("self: ", self.id, self.pk)
-    #     return reverse("public-profile", kwargs={"pk": self.id})

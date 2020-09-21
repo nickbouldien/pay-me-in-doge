@@ -5,7 +5,7 @@
   {% for site in sites %}
     <article class="media content-section" data-site-id="{{ site.id }}">
       <a href="{% url 'user-sites' username=site.poster.username %}">
-        <img class="rounded-circle article-img" src="{{ site.poster.profile.image.url }}" />
+        <img class="rounded-circle article-img" src="static/default.png" />
       </a>
       <div class="media-body">
         <div class="article-metadata">

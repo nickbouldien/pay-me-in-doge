@@ -7,7 +7,6 @@ from vote.models import VoteModel
 from common.util.validators import validate_url
 
 
-# TODO - move this class out of here
 class UUIDModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -30,4 +29,3 @@ class Site(VoteModel, models.Model):
 
     def get_absolute_url(self):
         return reverse("site-detail", kwargs={"pk": self.pk})
-
