@@ -1,9 +1,6 @@
-from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -18,14 +15,14 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
-from functools import wraps
+
 from common.util.decorators import ajax_login_required
 from users.models import Profile
 from .forms import SiteCreateForm, SiteUpdateForm
 from .models import Site
 
+# vote constants
 votes = {"DOWNVOTE": -1, "UPVOTE": 1, "DELETE": 0}
-
 MIN_VOTE_SCORE = -5
 
 
@@ -50,7 +47,7 @@ def vote(request):
 
     # dont let the user vote for their own site
     if site.poster.id == request.user.id:
-        return JsonResponse({"message": "can't vote for your own site"}, status=400)
+        return JsonResponse({"message": "you can't vote for your own site"}, status=400)
 
     try:
         vote_num = int(vote)

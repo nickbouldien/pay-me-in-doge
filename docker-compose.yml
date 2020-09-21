@@ -18,10 +18,9 @@ services:
     restart: always
     build: .
     command: /bin/sh -c "code/docker-entrypoint.sh"
-#    command: gunicorn pay_me_in_doge.wsgi:application --bind 0.0.0.0:8000
     container_name: pay-me-in-doge
     environment:
-      - DEBUG="true"
+      - ENV=dev
     env_file: .env
     ports:
       - 8000:8000

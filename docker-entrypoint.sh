@@ -12,4 +12,4 @@ python manage.py migrate
 
 # Start server
 echo "Starting the server on port 8000"
-gunicorn pay_me_in_doge.wsgi:application --bind 0.0.0.0:8000
+gunicorn pay_me_in_doge.wsgi:application --workers=3 --bind 0.0.0.0:8000

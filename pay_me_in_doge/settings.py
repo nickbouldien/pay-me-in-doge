@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from typing import List
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,10 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = bool(os.environ.get("DEBUG", False))
-print("debug mode: ", DEBUG)
+ENV: str = os.environ.get("ENV", "production")
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"] if DEBUG else [".paymeindoge.world"]
+DEBUG: bool = True  # if ENV == "dev" else False
+print("ENV mode: ", ENV, " DEBUG: ", DEBUG)
+
+ALLOWED_HOSTS: List[str] = ["localhost", "127.0.0.1"] if DEBUG else [
+    ".paymeindoge.world"
+]
 
 
 # Application definition

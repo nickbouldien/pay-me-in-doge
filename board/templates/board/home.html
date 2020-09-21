@@ -1,5 +1,7 @@
 {% extends "board/base.html" %}
 {% block content %}
+
+{% if sites|length > 0 %}
   {% for site in sites %}
     <article class="media content-section" data-site-id="{{ site.id }}">
       <a href="{% url 'user-sites' username=site.poster.username %}">
@@ -71,10 +73,14 @@
         <a class="btn btn-info" href="?page={{ num }}">{{ num }}</a>
       {% endif %}
     {% endfor %}
-    
+
     {% if page_obj.has_next %}
       <a class="btn btn-outline-info" href="?page={{ page_obj.next_page_number }}">next</a>
       <a class="btn btn-outline-info" href="?page={{ page_obj.paginator.num_pages }}">last</a>
     {% endif %}
   {% endif %}
+{% else %}
+    <p>there are currently no sites to show</p>
+{% endif %}
+
 {% endblock content%}
