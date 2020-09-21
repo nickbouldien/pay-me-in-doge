@@ -2,14 +2,9 @@
 a django app that lets users list websites that accept dogecoin as payment
 
 ## setup
+### with docker-compose
 ```bash
-python3.7 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-```bash
-python manage.py runserver
+docker-compose up
 ```
 
 ### with docker
@@ -20,6 +15,20 @@ docker build -t paymeindoge:latest .
 ```bash
 docker run --rm --name pay-me-in-doge -e "PORT=8000" -e "DEBUG=1" -p 8000:8000 paymeindoge:latest
 ```
+
+### without docker
+```bash
+python3.7 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+```bash
+python manage.py runserver
+```
+
+## example screenshot
+![pay-me-in-doge screenshot](docs/example.png)
 
 
 ## sample data/commands
